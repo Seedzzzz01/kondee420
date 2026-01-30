@@ -153,6 +153,11 @@ export interface Translations {
     activeRepairs: string;
     completedCases: string;
     recentActivity: string;
+    trackStatus: string;
+    enterClaimId: string;
+    search: string;
+    trackingResultTitle: string;
+    statusTimeline: string;
 }
 
 export const translations: Record<Language, Translations> = {
@@ -309,6 +314,11 @@ export const translations: Record<Language, Translations> = {
         activeRepairs: 'กำลังซ่อม',
         completedCases: 'เสร็จสิ้นแล้ว',
         recentActivity: 'กิจกรรมล่าสุด',
+        trackStatus: 'ติดตามสถานะเคลม',
+        enterClaimId: 'กรอกหมายเลขเคลม (เช่น CLM-XXXXXX)',
+        search: 'ค้นหา',
+        trackingResultTitle: 'ผลการค้นหาข้อมูลการเคลม',
+        statusTimeline: 'สถานะการดำเนินงาน',
     },
     en: {
         // Header
@@ -463,5 +473,10 @@ export const translations: Record<Language, Translations> = {
         activeRepairs: 'In Repair',
         completedCases: 'Completed',
         recentActivity: 'Recent Activity',
+        trackStatus: 'Track Status',
+        enterClaimId: 'Enter Claim ID (e.g., CLM-XXXXXX)',
+        search: 'Search',
+        trackingResultTitle: 'Claim Status Results',
+        statusTimeline: 'Status Timeline',
     },
 };

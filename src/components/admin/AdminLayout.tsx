@@ -70,7 +70,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     ))}
                 </nav>
 
-                <div style={{ position: 'absolute', bottom: '2rem', left: '1.5rem', right: '1.5rem' }}>
+                <div style={{ position: 'absolute', bottom: '2rem', left: '1.5rem', right: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                     <Link
                         href="/"
                         style={{
@@ -87,6 +87,29 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     >
                         <span>🏠</span> {t.backToPortal}
                     </Link>
+
+                    <button
+                        onClick={async () => {
+                            await fetch('/api/admin/login', { method: 'DELETE' });
+                            window.location.href = '/';
+                        }}
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.75rem',
+                            padding: '0.85rem 1.25rem',
+                            borderRadius: '12px',
+                            border: 'none',
+                            background: 'transparent',
+                            cursor: 'pointer',
+                            color: '#ff6b6b',
+                            fontSize: '0.9rem',
+                            fontWeight: 600,
+                            transition: 'all 0.3s ease',
+                        }}
+                    >
+                        <span>🚪</span> Logout
+                    </button>
                 </div>
             </aside>
 

@@ -91,8 +91,19 @@ export default function ClaimPage() {
       <LanguageToggle />
       <div className="container">
         <header className="header">
-          <h1 className="header-title">{t.headerTitle}</h1>
-          <p className="header-subtitle">{t.headerSubtitle}</p>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+            <div>
+              <h1 className="header-title">{t.headerTitle}</h1>
+              <p className="header-subtitle">{t.headerSubtitle}</p>
+            </div>
+            <button
+              onClick={() => window.location.href = '/track'}
+              className="btn btn-secondary"
+              style={{ padding: '0.5rem 1rem', minHeight: 'auto', fontSize: '0.85rem' }}
+            >
+              🔍 {t.trackStatus || 'Track Status'}
+            </button>
+          </div>
         </header>
 
         {step < 4 && (
@@ -479,6 +490,35 @@ export default function ClaimPage() {
             </div>
           )}
         </main>
+
+        <footer style={{
+          marginTop: '4rem',
+          padding: '2rem 0',
+          textAlign: 'center',
+          borderTop: '1px solid rgba(255, 255, 255, 0.05)',
+          color: 'rgba(200, 200, 240, 0.4)',
+          fontSize: '0.85rem'
+        }}>
+          <p>© 2026 Kondee420 Claim Portal</p>
+          <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center', gap: '1.5rem' }}>
+            <a
+              href="/admin"
+              style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}
+              onMouseOver={(e) => (e.currentTarget.style.color = '#7c5cff')}
+              onMouseOut={(e) => (e.currentTarget.style.color = 'inherit')}
+            >
+              Admin Portal
+            </a>
+            <a
+              href="/track"
+              style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s' }}
+              onMouseOver={(e) => (e.currentTarget.style.color = '#00d4aa')}
+              onMouseOut={(e) => (e.currentTarget.style.color = 'inherit')}
+            >
+              Track Claim
+            </a>
+          </div>
+        </footer>
       </div>
     </>
   );
