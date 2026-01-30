@@ -7,7 +7,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function ClaimDetail({ params }: { params: Promise<{ id: string }> }) {
     const { id } = use(params);
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
     const [claim, setClaim] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [updating, setUpdating] = useState(false);
@@ -48,7 +48,7 @@ export default function ClaimDetail({ params }: { params: Promise<{ id: string }
             const res = await fetch(`/api/admin/claims/${id}/ai-analyze`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ lang: localStorage.getItem('language') || 'th' }),
+                body: JSON.stringify({ lang: language }),
             });
             const suggestion = await res.json();
             setAiSuggestion(suggestion);

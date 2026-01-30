@@ -3,6 +3,7 @@
 import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useLanguage } from '@/contexts/LanguageContext';
+import LanguageToggle from '@/components/LanguageToggle';
 
 function LoginContent() {
     const { t } = useLanguage();
@@ -48,6 +49,7 @@ function LoginContent() {
             <div className="orb orb-1" />
             <div className="orb orb-2" />
             <div className="orb orb-3" />
+            <LanguageToggle />
 
             <div className="container relative z-10 w-full max-w-md">
                 <div className="glass-card p-8 animate-in fade-in zoom-in duration-500">

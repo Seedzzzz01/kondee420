@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLanguage } from '@/contexts/LanguageContext';
+import LanguageToggle from '@/components/LanguageToggle';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
@@ -43,6 +44,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     }}>
                         <span style={{ fontSize: '1.8rem' }}>🛡️</span> {t.adminPanel}
                     </h1>
+                </div>
+
+                <div style={{ marginBottom: '2rem' }}>
+                    <LanguageToggle />
                 </div>
 
                 <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
