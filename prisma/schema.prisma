@@ -28,30 +28,30 @@ model WarrantyModel {
 }
 
 model Claim {
-  id               String               @id @default(cuid())
-  claimId          String               @unique @map("claim_id")
-  createdAt        DateTime             @default(now()) @map("created_at")
-  updatedAt        DateTime             @updatedAt @map("updated_at")
-  customerFirstName String              @map("customer_first_name")
-  customerLastName  String              @map("customer_last_name")
-  phone            String
-  email            String?
-  lineId           String?              @map("line_id")
-  brand            String
-  modelKey         String               @map("model_key")
-  modelName        String               @map("model_name")
-  serialNumber     String               @map("serial_number")
-  purchaseDate     DateTime             @map("purchase_date")
-  purchaseChannel  String?              @map("purchase_channel")
-  orderNo          String?              @map("order_no")
-  issueDescription String               @map("issue_description")
-  issueStartDate   DateTime?            @map("issue_start_date")
-  issueUsageType   String?              @map("issue_usage_type")
-  status           String               @default("NEW")
-  adminNote        String?              @map("admin_note")
-  attachments      ClaimAttachment[]
-  statusHistory    ClaimStatusHistory[]
-  warrantyModel    WarrantyModel        @relation(fields: [modelKey], references: [modelKey])
+  id                String               @id @default(cuid())
+  claimId           String               @unique @map("claim_id")
+  createdAt         DateTime             @default(now()) @map("created_at")
+  updatedAt         DateTime             @updatedAt @map("updated_at")
+  customerFirstName String               @map("customer_first_name")
+  customerLastName  String               @map("customer_last_name")
+  phone             String
+  email             String?
+  lineId            String?              @map("line_id")
+  brand             String
+  modelKey          String               @map("model_key")
+  modelName         String               @map("model_name")
+  serialNumber      String               @map("serial_number")
+  purchaseDate      DateTime             @map("purchase_date")
+  purchaseChannel   String?              @map("purchase_channel")
+  orderNo           String?              @map("order_no")
+  issueDescription  String               @map("issue_description")
+  issueStartDate    DateTime?            @map("issue_start_date")
+  issueUsageType    String?              @map("issue_usage_type")
+  status            String               @default("NEW")
+  adminNote         String?              @map("admin_note")
+  attachments       ClaimAttachment[]
+  statusHistory     ClaimStatusHistory[]
+  warrantyModel     WarrantyModel        @relation(fields: [modelKey], references: [modelKey])
 
   @@map("claims")
 }

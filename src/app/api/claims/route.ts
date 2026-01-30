@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { z } from 'zod';
 import { FILE_TYPES } from '@/lib/types';
+import { sendLineMessage, formatNewClaimMessage } from '@/lib/line-notify';
 
 // Define the schema for input validation
 const claimSchema = z.object({
@@ -107,6 +108,17 @@ export async function POST(request: Request) {
 
             return claim;
         });
+
+        // Send LINE notification (fire-and-forget, don't block response)
+        const lineMessage = formatNewClaimMessage({
+            claimId: newClaim.claimId,
+            customerName: `${data.customerFirstName} ${data.customerLastName}`,
+            phone: data.phone,
+            brand: data.brand,
+            modelName: model.modelKey.split('_').pop() || model.modelKey,
+            issueDescription: data.issueDescription,
+        });
+        sendLineMessage(lineMessage).catch(console.error);
 
         return NextResponse.json({
             success: true,
