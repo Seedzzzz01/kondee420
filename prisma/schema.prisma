@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model WarrantyModel {
+  id                  Int      @id @default(autoincrement())
+  brand               String
+  modelKey            String   @unique @map("model_key")
+  warrantyMonths      Int?     @map("warranty_months")
+  warrantyStartRuleTh String   @map("warranty_start_rule_th")
+  requiredDocsTh      String   @map("required_docs_th")
+  claimStepsTh        String   @map("claim_steps_th")
+  coverageSummaryTh   String?  @map("coverage_summary_th")
+  coverageDetailTh    String?  @map("coverage_detail_th")
+  excludeTh           String?  @map("exclude_th")
+  notesTh             String?  @map("notes_th")
+  createdAt           DateTime @default(now()) @map("created_at")
+  updatedAt           DateTime @updatedAt @map("updated_at")
+  claims              Claim[]
+
+  @@map("warranty_models")
+}
+
+model Claim {
+  id               String               @id @default(cuid())
+  claimId          String               @unique @map("claim_id")
+  createdAt        DateTime             @default(now()) @map("created_at")
+  updatedAt        DateTime             @updatedAt @map("updated_at")
+  customerFirstName String              @map("customer_first_name")
+  customerLastName  String              @map("customer_last_name")
+  phone            String
+  email            String?
+  lineId           String?              @map("line_id")
+  brand            String
+  modelKey         String               @map("model_key")
+  modelName        String               @map("model_name")
+  serialNumber     String               @map("serial_number")
+  purchaseDate     DateTime             @map("purchase_date")
+  purchaseChannel  String?              @map("purchase_channel")
+  orderNo          String?              @map("order_no")
+  issueDescription String               @map("issue_description")
+  issueStartDate   DateTime?            @map("issue_start_date")
+  issueUsageType   String?              @map("issue_usage_type")
+  status           String               @default("NEW")
+  adminNote        String?              @map("admin_note")
+  attachments      ClaimAttachment[]
+  statusHistory    ClaimStatusHistory[]
+  warrantyModel    WarrantyModel        @relation(fields: [modelKey], references: [modelKey])
+
+  @@map("claims")
+}
+
+model ClaimAttachment {
+  id         String   @id @default(cuid())
+  claimId    String   @map("claim_id")
+  type       String
+  fileUrl    String   @map("file_url")
+  fileName   String?  @map("file_name")
+  fileSize   Int?     @map("file_size")
+  uploadedAt DateTime @default(now()) @map("uploaded_at")
+  claim      Claim    @relation(fields: [claimId], references: [id], onDelete: Cascade)
+
+  @@map("claim_attachments")
+}
+
+model ClaimStatusHistory {
+  id        String   @id @default(cuid())
+  claimId   String   @map("claim_id")
+  oldStatus String   @map("old_status")
+  newStatus String   @map("new_status")
+  note      String?
+  changedBy String?  @map("changed_by")
+  changedAt DateTime @default(now()) @map("changed_at")
+  claim     Claim    @relation(fields: [claimId], references: [id], onDelete: Cascade)
+
+  @@map("claim_status_history")
+}
