@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useLanguage } from '@/contexts/LanguageContext';
 
-export default function LoginPage() {
+function LoginContent() {
     const { t } = useLanguage();
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -117,5 +117,17 @@ export default function LoginPage() {
                 </div>
             </div>
         </main>
+    );
+}
+
+export default function LoginPage() {
+    return (
+        <Suspense fallback={
+            <main className="min-h-screen bg-[#050510] flex items-center justify-center">
+                <div className="spinner" />
+            </main>
+        }>
+            <LoginContent />
+        </Suspense>
     );
 }
