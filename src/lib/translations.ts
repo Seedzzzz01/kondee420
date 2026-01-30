@@ -159,6 +159,19 @@ export interface Translations {
     search: string;
     trackingResultTitle: string;
     statusTimeline: string;
+    // Login
+    adminLoginTitle: string;
+    adminLoginSubtitle: string;
+    username: string;
+    usernamePlaceholder: string;
+    password: string;
+    passwordPlaceholder: string;
+    signIn: string;
+    logout: string;
+    // Additional Track & Common
+    claimNotFoundTitle: string;
+    errorFetchStatus: string;
+    backToHome: string;
 }
 
 export const translations: Record<Language, Translations> = {
@@ -321,6 +334,19 @@ export const translations: Record<Language, Translations> = {
         search: 'ค้นหา',
         trackingResultTitle: 'ผลการค้นหาข้อมูลการเคลม',
         statusTimeline: 'สถานะการดำเนินงาน',
+        // Login
+        adminLoginTitle: 'เข้าสู่ระบบแอดมิน',
+        adminLoginSubtitle: 'กรุณากรอกข้อมูลเพื่อเข้าสู่ระบบ',
+        username: 'ชื่อผู้ใช้งาน',
+        usernamePlaceholder: 'กรอกชื่อผู้ใช้งาน',
+        password: 'รหัสผ่าน',
+        passwordPlaceholder: 'กรอกรหัสผ่าน',
+        signIn: 'เข้าสู่ระบบ',
+        logout: 'ออกจากระบบ',
+        // Additional Track & Common
+        claimNotFoundTitle: 'ไม่พบข้อมูลการเคลม',
+        errorFetchStatus: 'ไม่สามารถดึงข้อมูลสถานะได้',
+        backToHome: 'กลับสู่หน้าหลัก',
     },
     en: {
         // Header
@@ -481,5 +507,18 @@ export const translations: Record<Language, Translations> = {
         search: 'Search',
         trackingResultTitle: 'Claim Status Results',
         statusTimeline: 'Status Timeline',
+        // Login
+        adminLoginTitle: 'Admin Login',
+        adminLoginSubtitle: 'Please enter your credentials to continue',
+        username: 'Username',
+        usernamePlaceholder: 'Enter username',
+        password: 'Password',
+        passwordPlaceholder: 'Enter password',
+        signIn: 'Sign In',
+        logout: 'Logout',
+        // Additional Track & Common
+        claimNotFoundTitle: 'Claim Not Found',
+        errorFetchStatus: 'Failed to fetch status',
+        backToHome: 'Back to Home',
     },
 };

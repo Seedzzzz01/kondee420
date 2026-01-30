@@ -28,11 +28,11 @@ export default function TrackPage() {
             if (res.ok) {
                 setClaim(data);
             } else {
-                setError(data.error || 'Claim not found');
+                setError(data.error === 'Claim not found' ? t.claimNotFoundTitle : (data.error || t.claimNotFoundTitle));
             }
         } catch (err) {
             console.error('Track error:', err);
-            setError('Failed to fetch status');
+            setError(t.errorFetchStatus);
         } finally {
             setLoading(false);
         }
@@ -238,7 +238,7 @@ export default function TrackPage() {
                                 fontWeight: 600
                             }}
                         >
-                            🏠 {t.backToPortal || 'Back to Home'}
+                            🏠 {t.backToHome}
                         </button>
                     </Link>
                 </footer>

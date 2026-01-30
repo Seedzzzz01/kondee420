@@ -56,34 +56,34 @@ function LoginContent() {
                             🛡️
                         </div>
                         <h1 className="text-3xl font-extrabold mb-3 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-cyan-400">
-                            Admin Login
+                            {t.adminLoginTitle}
                         </h1>
                         <p className="text-blue-200/50">
-                            Please enter your credentials to continue
+                            {t.adminLoginSubtitle}
                         </p>
                     </div>
 
                     <form onSubmit={handleLogin} className="space-y-6">
                         <div className="space-y-2">
-                            <label className="text-sm font-semibold text-blue-200/70 ml-1">Username</label>
+                            <label className="text-sm font-semibold text-blue-200/70 ml-1">{t.username}</label>
                             <input
                                 type="text"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                                 className="form-input w-full"
-                                placeholder="Enter username"
+                                placeholder={t.usernamePlaceholder}
                                 required
                             />
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-sm font-semibold text-blue-200/70 ml-1">Password</label>
+                            <label className="text-sm font-semibold text-blue-200/70 ml-1">{t.password}</label>
                             <input
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 className="form-input w-full"
-                                placeholder="Enter password"
+                                placeholder={t.passwordPlaceholder}
                                 required
                             />
                         </div>
@@ -102,7 +102,7 @@ function LoginContent() {
                                 boxShadow: '0 8px 30px -10px rgba(124, 92, 255, 0.5)'
                             }}
                         >
-                            {loading ? <div className="spinner mx-auto" /> : 'Sign In'}
+                            {loading ? <div className="spinner mx-auto" /> : t.signIn}
                         </button>
                     </form>
 
@@ -111,7 +111,7 @@ function LoginContent() {
                             onClick={() => router.push('/')}
                             className="text-sm text-blue-200/40 hover:text-purple-400 transition-colors"
                         >
-                            ← Back to Portal
+                            ← {t.backToPortal}
                         </button>
                     </div>
                 </div>

@@ -108,7 +108,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                             transition: 'all 0.3s ease',
                         }}
                     >
-                        <span>🚪</span> Logout
+                        <span>🚪</span> {t.logout}
                     </button>
                 </div>
             </aside>
