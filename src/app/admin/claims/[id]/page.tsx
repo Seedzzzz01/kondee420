@@ -92,7 +92,8 @@ export default function ClaimDetail({ params }: { params: Promise<{ id: string }
             case 'NEW': return '#7c5cff';
             case 'APPROVED': return '#00d4aa';
             case 'REJECTED': return '#ff6b6b';
-            case 'NEED_MORE_INFO': return '#ffb347';
+            case 'ADDITIONAL_INFO': return '#ffb347';
+            case 'PROCESSING': return '#7c5cff';
             case 'COMPLETED': return '#00d9a5';
             case 'RECEIVED': return '#7c5cff';
             case 'IN_REPAIR': return '#00d4aa';

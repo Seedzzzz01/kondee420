@@ -46,7 +46,17 @@ export async function PATCH(
         }
 
         const updatedClaim = await prisma.$transaction(async (tx) => {
-            const claim = await tx.claim.update({
+            // Get current status before update
+            const currentClaim = await tx.claim.findUnique({
+                where: { id },
+                select: { status: true }
+            });
+
+            if (!currentClaim) {
+                throw new Error('Claim not found');
+            }
+
+            const updated = await tx.claim.update({
                 where: { id },
                 data: { status },
             });
@@ -54,21 +64,24 @@ export async function PATCH(
             await tx.claimStatusHistory.create({
                 data: {
                     claimId: id,
-                    oldStatus: (claim as any).status, // We should ideally fetch old status before update
+                    oldStatus: currentClaim.status,
                     newStatus: status,
                     note: note || `Status updated to ${status}`,
                     changedBy: 'Admin',
                 },
             });
 
-            return claim;
+            return updated;
         });
 
         return NextResponse.json(updatedClaim);
-    } catch (error) {
+    } catch (error: any) {
         console.error('Admin Claim Update Error:', error);
         return NextResponse.json(
-            { error: 'Failed to update claim status' },
+            {
+                error: 'Failed to update claim status',
+                details: error.message || String(error)
+            },
             { status: 500 }
         );
     }

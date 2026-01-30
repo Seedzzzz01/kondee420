@@ -3,10 +3,11 @@
 
 export const CLAIM_STATUSES = [
     'NEW',
-    'NEED_MORE_INFO',
+    'ADDITIONAL_INFO',
     'APPROVED',
     'RECEIVED',
     'IN_REPAIR',
+    'PROCESSING',
     'COMPLETED',
     'REJECTED',
     'CANCELLED',
@@ -30,9 +31,10 @@ import { Translations } from './translations';
 export function formatClaimStatus(status: ClaimStatus, t: Translations): string {
     const statusMap: Record<ClaimStatus, string> = {
         NEW: t.statusNEW,
-        NEED_MORE_INFO: t.statusNEED_MORE_INFO,
+        ADDITIONAL_INFO: t.statusADDITIONAL_INFO,
         APPROVED: t.statusAPPROVED,
         RECEIVED: t.statusRECEIVED,
+        PROCESSING: t.statusPROCESSING,
         IN_REPAIR: t.statusIN_REPAIR,
         COMPLETED: t.statusCOMPLETED,
         REJECTED: t.statusREJECTED,

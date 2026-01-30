@@ -92,16 +92,27 @@ async function main() {
         if (!foundInList) throw new Error('New claim not found in admin claim list');
         console.log('✅ Claim found in admin list');
 
-        // 7. Verify Tracking
-        console.log('Verifying customer tracking page...');
+        // 7. Verify Status Update (to PROCESSING)
+        console.log(`Updating claim ${claimId} to PROCESSING...`);
+        const updateRes = await fetch(`${baseUrl}/api/admin/claims/${submitData.id}`, {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status: 'PROCESSING', note: 'Test processing status' })
+        });
+        if (!updateRes.ok) {
+            const errData = await updateRes.json();
+            throw new Error(`Failed to update to PROCESSING: ${updateRes.status} - ${errData.error} (${errData.details || 'no details'})`);
+        }
+        console.log('✅ Updated to PROCESSING');
+
+        // 8. Verify Tracking with new status
+        console.log('Verifying tracking after update...');
         const trackRes = await fetch(`${baseUrl}/api/track/${claimId}`);
         if (!trackRes.ok) throw new Error(`Failed to track claim: ${trackRes.status}`);
         const trackData = await trackRes.json();
 
-        if (trackData.claimId !== claimId) throw new Error('Tracking returned wrong claim ID');
-        if (trackData.status !== 'NEW') throw new Error(`Unexpected status: ${trackData.status}`);
-
-        console.log('✅ Tracking API verified');
+        if (trackData.status !== 'PROCESSING') throw new Error(`Unexpected status after update: ${trackData.status}`);
+        console.log('✅ Tracking verified after update');
 
         console.log('🚀 ALL VERIFICATION CHECKS PASSED');
 

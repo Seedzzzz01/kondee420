@@ -108,7 +108,11 @@ export async function POST(request: Request) {
             return claim;
         });
 
-        return NextResponse.json({ success: true, claimId: newClaim.claimId });
+        return NextResponse.json({
+            success: true,
+            claimId: newClaim.claimId,
+            id: newClaim.id
+        });
 
     } catch (error) {
         console.error('Error creating claim:', error);

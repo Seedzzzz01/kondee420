@@ -59,9 +59,10 @@ export default function AdminDashboard() {
     const getStatusColor = (status: string) => {
         switch (status) {
             case 'NEW': return '#7c5cff';
-            case 'NEED_MORE_INFO': return '#ffb347';
+            case 'ADDITIONAL_INFO': return '#ffb347';
             case 'APPROVED': return '#00d4aa';
             case 'RECEIVED': return '#7c5cff';
+            case 'PROCESSING': return '#7c5cff';
             case 'IN_REPAIR': return '#00d4aa';
             case 'COMPLETED': return '#00d9a5';
             case 'REJECTED': return '#ff6b6b';
@@ -102,10 +103,11 @@ export default function AdminDashboard() {
                         >
                             <option value="">{t.allStatuses}</option>
                             <option value="NEW">{t.statusNEW}</option>
-                            <option value="NEED_MORE_INFO">{t.statusNEED_MORE_INFO}</option>
+                            <option value="ADDITIONAL_INFO">{t.statusADDITIONAL_INFO}</option>
                             <option value="APPROVED">{t.statusAPPROVED}</option>
                             <option value="RECEIVED">{t.statusRECEIVED}</option>
                             <option value="IN_REPAIR">{t.statusIN_REPAIR}</option>
+                            <option value="PROCESSING">{t.statusPROCESSING}</option>
                             <option value="COMPLETED">{t.statusCOMPLETED}</option>
                             <option value="REJECTED">{t.statusREJECTED}</option>
                             <option value="CANCELLED">{t.statusCANCELLED}</option>
@@ -114,7 +116,7 @@ export default function AdminDashboard() {
                 </div>
 
                 {/* Stats Summary Cards */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.5rem', marginBottom: '2rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '1.5rem', marginBottom: '2rem' }}>
                     <div className="glass-card" style={{ padding: '1.5rem', borderLeft: '4px solid #7c5cff' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <span style={{ fontSize: '0.9rem', color: 'rgba(200, 200, 240, 0.6)' }}>{t.totalClaims}</span>
@@ -140,6 +142,16 @@ export default function AdminDashboard() {
                         </div>
                         <div style={{ fontSize: '1.8rem', fontWeight: 700, marginTop: '0.5rem' }}>
                             {stats?.statusCounts?.find((s: any) => s.status === 'IN_REPAIR')?.count || 0}
+                        </div>
+                    </div>
+
+                    <div className="glass-card" style={{ padding: '1.5rem', borderLeft: '4px solid #7c5cff' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <span style={{ fontSize: '0.9rem', color: 'rgba(200, 200, 240, 0.6)' }}>{t.statusPROCESSING}</span>
+                            <span style={{ fontSize: '1.5rem' }}>🛠️</span>
+                        </div>
+                        <div style={{ fontSize: '1.8rem', fontWeight: 700, marginTop: '0.5rem' }}>
+                            {stats?.statusCounts?.find((s: any) => s.status === 'PROCESSING')?.count || 0}
                         </div>
                     </div>
 

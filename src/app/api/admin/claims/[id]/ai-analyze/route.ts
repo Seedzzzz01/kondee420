@@ -46,7 +46,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
             };
         } else if (desc.length < 15) {
             suggestion = {
-                status: 'NEED_MORE_INFO',
+                status: 'ADDITIONAL_INFO',
                 rationale: lang === 'th'
                     ? 'ข้อมูลรายละเอียดอาการค่อนข้างน้อยเกินไป ไม่สามารถวินิจฉัยสาเหตุที่แน่ชัดได้'
                     : 'Description is too short to determine the cause. Need more details from customer.',

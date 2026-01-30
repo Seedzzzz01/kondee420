@@ -125,9 +125,10 @@ export interface Translations {
 
     // Statuses (consistent strings)
     statusNEW: string;
-    statusNEED_MORE_INFO: string;
+    statusADDITIONAL_INFO: string;
     statusAPPROVED: string;
     statusRECEIVED: string;
+    statusPROCESSING: string;
     statusIN_REPAIR: string;
     statusCOMPLETED: string;
     statusREJECTED: string;
@@ -286,9 +287,10 @@ export const translations: Record<Language, Translations> = {
 
         // Statuses
         statusNEW: 'รอตรวจสอบ',
-        statusNEED_MORE_INFO: 'รอข้อมูลเพิ่มเติม',
+        statusADDITIONAL_INFO: 'รอข้อมูลเพิ่มเติม',
         statusAPPROVED: 'อนุมัติแล้ว',
         statusRECEIVED: 'ได้รับสินค้าแล้ว',
+        statusPROCESSING: 'กำลังดำเนินการ',
         statusIN_REPAIR: 'กำลังซ่อม',
         statusCOMPLETED: 'เสร็จสิ้น',
         statusREJECTED: 'ไม่อนุมัติ',
@@ -445,9 +447,10 @@ export const translations: Record<Language, Translations> = {
 
         // Statuses
         statusNEW: 'New',
-        statusNEED_MORE_INFO: 'Need Info',
+        statusADDITIONAL_INFO: 'Add Info',
         statusAPPROVED: 'Approved',
         statusRECEIVED: 'Received',
+        statusPROCESSING: 'Processing',
         statusIN_REPAIR: 'In Repair',
         statusCOMPLETED: 'Completed',
         statusREJECTED: 'Rejected',
