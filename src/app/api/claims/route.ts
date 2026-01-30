@@ -40,6 +40,7 @@ export async function POST(request: Request) {
         // Validate input
         const result = claimSchema.safeParse(body);
         if (!result.success) {
+            console.error('Validation failed details:', JSON.stringify(result.error.flatten(), null, 2));
             return NextResponse.json({ error: 'Validation failed', details: result.error.flatten() }, { status: 400 });
         }
 

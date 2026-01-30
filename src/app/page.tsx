@@ -72,7 +72,14 @@ export default function ClaimPage() {
         setSubmitResult({ success: true, claimId: result.claimId });
         setStep(4);
       } else {
-        alert(`${t.errorOccurred} ${result.error || 'Unknown error'}`);
+        let errorMessage = result.error || 'Unknown error';
+        if (result.details && result.details.fieldErrors) {
+          const detailedErrors = Object.entries(result.details.fieldErrors)
+            .map(([field, msgs]) => `${field}: ${(msgs as string[]).join(', ')}`)
+            .join('\n');
+          errorMessage += `\n\nDetails:\n${detailedErrors}`;
+        }
+        alert(`${t.errorOccurred} ${errorMessage}`);
       }
     } catch (error) {
       console.error('Submit error:', error);
