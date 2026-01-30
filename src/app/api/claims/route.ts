@@ -11,20 +11,20 @@ const claimSchema = z.object({
     customerLastName: z.string().min(1, 'Last name is required'),
     phone: z.string().min(1, 'Phone is required'),
     email: z.string().email('Invalid email').optional().or(z.literal('')),
-    lineId: z.string().optional(),
+    lineId: z.string().optional().or(z.literal('')),
     brand: z.string().min(1, 'Brand is required'),
     modelKey: z.string().min(1, 'Model is required'),
     serialNumber: z.string().min(1, 'Serial Number is required'),
     purchaseDate: z.string().refine((date) => !isNaN(Date.parse(date)), {
         message: 'Invalid purchase date',
     }),
-    purchaseChannel: z.string().optional(),
-    orderNo: z.string().optional(),
+    purchaseChannel: z.string().optional().or(z.literal('')),
+    orderNo: z.string().optional().or(z.literal('')),
     issueDescription: z.string().min(1, 'Issue description is required'),
-    issueStartDate: z.string().optional().refine((date) => !date || !isNaN(Date.parse(date)), {
+    issueStartDate: z.string().optional().or(z.literal('')).refine((date) => !date || !isNaN(Date.parse(date)), {
         message: 'Invalid issue start date',
     }),
-    issueUsageType: z.string().optional(),
+    issueUsageType: z.string().optional().or(z.literal('')),
     attachments: z.array(z.object({
         type: z.enum(FILE_TYPES),
         fileUrl: z.string().url(),
