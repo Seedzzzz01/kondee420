@@ -21,8 +21,18 @@ export default function ProductSelector({ onModelSelect, selectedModel }: Produc
     useEffect(() => {
         fetch('/api/brands')
             .then(res => res.json())
-            .then(data => setBrands(data))
-            .catch(err => console.error('Error fetching brands:', err));
+            .then(data => {
+                if (Array.isArray(data)) {
+                    setBrands(data);
+                } else {
+                    console.error('Brands data is not an array:', data);
+                    setBrands([]);
+                }
+            })
+            .catch(err => {
+                console.error('Error fetching brands:', err);
+                setBrands([]);
+            });
     }, []);
 
     // Fetch models when brand changes
@@ -35,11 +45,17 @@ export default function ProductSelector({ onModelSelect, selectedModel }: Produc
         fetch(`/api/models?brand=${encodeURIComponent(selectedBrand)}`)
             .then(res => res.json())
             .then(data => {
-                setModels(data);
+                if (Array.isArray(data)) {
+                    setModels(data);
+                } else {
+                    console.error('Models data is not an array:', data);
+                    setModels([]);
+                }
                 setLoading(false);
             })
             .catch(err => {
                 console.error('Error fetching models:', err);
+                setModels([]);
                 setLoading(false);
             });
     }, [selectedBrand]);

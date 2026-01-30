@@ -28,7 +28,12 @@ export default function AdminDashboard() {
 
             const res = await fetch(`${url}?${params.toString()}`);
             const data = await res.json();
-            setClaims(data);
+            if (Array.isArray(data)) {
+                setClaims(data);
+            } else {
+                console.error('Claims data is not an array:', data);
+                setClaims([]);
+            }
         } catch (error) {
             console.error('Fetch claims error:', error);
         } finally {

@@ -48,8 +48,11 @@ export async function GET() {
             // Simplified trend for now
             trend: recentActivity.length
         });
-    } catch (error) {
+    } catch (error: any) {
         console.error('Stats Error:', error);
-        return NextResponse.json({ error: 'Failed to fetch stats' }, { status: 500 });
+        return NextResponse.json({
+            error: 'Failed to fetch stats',
+            details: error.message || String(error)
+        }, { status: 500 });
     }
 }

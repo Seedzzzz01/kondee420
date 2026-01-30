@@ -15,8 +15,11 @@ export async function GET() {
         });
 
         return NextResponse.json(brands.map((b: { brand: string }) => b.brand));
-    } catch (error) {
+    } catch (error: any) {
         console.error('Error fetching brands:', error);
-        return NextResponse.json({ error: 'Failed to fetch brands' }, { status: 500 });
+        return NextResponse.json({
+            error: 'Failed to fetch brands',
+            details: error.message || String(error)
+        }, { status: 500 });
     }
 }
