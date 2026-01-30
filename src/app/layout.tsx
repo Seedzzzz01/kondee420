@@ -9,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "ศูนย์รับเคลมสินค้า | Claim Portal",
+  title: "บริการหลังการขาย Kondee420 | Claim Portal",
   description: "ระบบรับเคลมสินค้า - Submit your warranty claim online",
   keywords: ["เคลม", "ประกัน", "warranty", "claim", "Arizer", "PAX", "S&B", "Dynavap"],
 };

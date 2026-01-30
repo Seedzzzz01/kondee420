@@ -164,7 +164,7 @@ export interface Translations {
 export const translations: Record<Language, Translations> = {
     th: {
         // Header
-        headerTitle: '🛡️ ศูนย์รับเคลมสินค้า',
+        headerTitle: '🛡️ บริการหลังการขาย Kondee420',
         headerSubtitle: 'กรอกข้อมูลเพื่อส่งคำขอเคลมประกันสินค้าของคุณ',
 
         // Step 1
