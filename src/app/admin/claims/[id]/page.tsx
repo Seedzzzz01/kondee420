@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, use } from 'react';
 import AdminLayout from '@/components/admin/AdminLayout';
 import { formatClaimStatus, formatFileType, CLAIM_STATUSES } from '@/lib/types';
 import { useLanguage } from '@/contexts/LanguageContext';
 
-export default function ClaimDetail({ params }: { params: { id: string } }) {
+export default function ClaimDetail({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = use(params);
     const { t } = useLanguage();
     const [claim, setClaim] = useState<any>(null);
     const [loading, setLoading] = useState(true);
@@ -18,12 +19,12 @@ export default function ClaimDetail({ params }: { params: { id: string } }) {
 
     useEffect(() => {
         fetchClaim();
-    }, []);
+    }, [id]);
 
     const fetchClaim = async () => {
         setLoading(true);
         try {
-            const res = await fetch(`/api/admin/claims/${params.id}`);
+            const res = await fetch(`/api/admin/claims/${id}`);
             const data = await res.json();
             if (data.error) {
                 setClaim(null);
@@ -44,7 +45,7 @@ export default function ClaimDetail({ params }: { params: { id: string } }) {
 
     const analyzeWithAI = async () => {
         try {
-            const res = await fetch(`/api/admin/claims/${params.id}/ai-analyze`, {
+            const res = await fetch(`/api/admin/claims/${id}/ai-analyze`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ lang: localStorage.getItem('language') || 'th' }),
@@ -66,7 +67,7 @@ export default function ClaimDetail({ params }: { params: { id: string } }) {
         if (!newStatus) return;
         setUpdating(true);
         try {
-            const res = await fetch(`/api/admin/claims/${params.id}`, {
+            const res = await fetch(`/api/admin/claims/${id}`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status: newStatus, note }),

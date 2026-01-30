@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
             orderBy: { createdAt: 'desc' },
             include: {
                 statusHistory: {
-                    orderBy: { createdAt: 'desc' },
+                    orderBy: { changedAt: 'desc' },
                     take: 1,
                 },
             },

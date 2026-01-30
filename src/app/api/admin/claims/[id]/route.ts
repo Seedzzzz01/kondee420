@@ -4,15 +4,16 @@ import { ClaimStatus } from '@/lib/types';
 
 export async function GET(
     req: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { id } = await params;
         const claim = await prisma.claim.findUnique({
-            where: { id: params.id },
+            where: { id },
             include: {
                 attachments: true,
                 statusHistory: {
-                    orderBy: { createdAt: 'desc' },
+                    orderBy: { changedAt: 'desc' },
                 },
             },
         });
@@ -33,9 +34,10 @@ export async function GET(
 
 export async function PATCH(
     req: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
+        const { id } = await params;
         const body = await req.json();
         const { status, note } = body as { status: ClaimStatus; note?: string };
 
@@ -45,13 +47,13 @@ export async function PATCH(
 
         const updatedClaim = await prisma.$transaction(async (tx) => {
             const claim = await tx.claim.update({
-                where: { id: params.id },
+                where: { id },
                 data: { status },
             });
 
             await tx.claimStatusHistory.create({
                 data: {
-                    claimId: params.id,
+                    claimId: id,
                     oldStatus: (claim as any).status, // We should ideally fetch old status before update
                     newStatus: status,
                     note: note || `Status updated to ${status}`,
