@@ -12,6 +12,7 @@ export async function GET(
             where: { id },
             include: {
                 attachments: true,
+                warrantyModel: true,
                 statusHistory: {
                     orderBy: { changedAt: 'desc' },
                 },

@@ -149,7 +149,7 @@ export default function ProductSelector({ onModelSelect, selectedModel }: Produc
                             <span className="item-value">
                                 {language === 'th'
                                     ? (selectedModel.warrantyStartRuleTh || t.contactAdmin)
-                                    : (selectedModel.warrantyStartRuleTh || t.contactAdmin)
+                                    : (selectedModel.warrantyStartRuleEn || selectedModel.warrantyStartRuleTh || t.contactAdmin)
                                 }
                             </span>
                         </div>
@@ -161,7 +161,12 @@ export default function ProductSelector({ onModelSelect, selectedModel }: Produc
                         )}
                         <div className="warranty-item full-width">
                             <span className="item-label">{t.requiredDocs}</span>
-                            <span className="item-value">{selectedModel.requiredDocsTh || t.contactAdmin}</span>
+                            <span className="item-value">
+                                {language === 'th'
+                                    ? (selectedModel.requiredDocsTh || t.contactAdmin)
+                                    : (selectedModel.requiredDocsEn || selectedModel.requiredDocsTh || t.contactAdmin)
+                                }
+                            </span>
                         </div>
                     </div>
                 </div>

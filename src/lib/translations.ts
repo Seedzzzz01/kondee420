@@ -7,6 +7,9 @@ export interface Translations {
 
     // Step 1: Product Selection
     step1Title: string;
+    step1Short: string;
+    step2Short: string;
+    step3Short: string;
     selectBrand: string;
     selectBrandPlaceholder: string;
     selectModel: string;
@@ -23,6 +26,7 @@ export interface Translations {
     months: string;
     years: string;
     contactAdmin: string;
+    warrantyDetails: string;
 
     // Step 2: Customer Info
     step2Title: string;
@@ -182,6 +186,9 @@ export const translations: Record<Language, Translations> = {
 
         // Step 1
         step1Title: '📦 เลือกสินค้าที่ต้องการเคลม',
+        step1Short: 'สินค้า',
+        step2Short: 'ข้อมูล',
+        step3Short: 'รายละเอียด',
         selectBrand: 'เลือกแบรนด์',
         selectBrandPlaceholder: '-- เลือกแบรนด์สินค้า --',
         selectModel: 'เลือกรุ่นสินค้า',
@@ -198,6 +205,7 @@ export const translations: Record<Language, Translations> = {
         months: 'เดือน',
         years: 'ปี',
         contactAdmin: 'ดูรายละเอียดกับแอดมิน',
+        warrantyDetails: 'ข้อมูลประกันสินค้า',
 
         // Step 2
         step2Title: '👤 ข้อมูลลูกค้าและสินค้า',
@@ -355,6 +363,9 @@ export const translations: Record<Language, Translations> = {
 
         // Step 1
         step1Title: '📦 Select Product to Claim',
+        step1Short: 'Product',
+        step2Short: 'Info',
+        step3Short: 'Details',
         selectBrand: 'Select Brand',
         selectBrandPlaceholder: '-- Select a brand --',
         selectModel: 'Select Model',
@@ -371,6 +382,7 @@ export const translations: Record<Language, Translations> = {
         months: 'months',
         years: 'years',
         contactAdmin: 'Contact admin for details',
+        warrantyDetails: 'Warranty Details',
 
         // Step 2
         step2Title: '👤 Customer & Product Information',

@@ -90,18 +90,20 @@ export default function FileUpload({ onUploadSuccess, label, acceptedTypes = "im
             <style jsx>{`
                 .file-drop-zone {
                     border: 2px dashed rgba(100, 100, 180, 0.3);
-                    border-radius: 12px;
-                    padding: 1.5rem;
+                    border-radius: 14px;
+                    padding: 1.75rem 1.5rem;
                     text-align: center;
                     cursor: pointer;
                     transition: all 0.3s ease;
                     background: rgba(255, 255, 255, 0.02);
-                    min-height: 100px;
+                    min-height: 120px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
+                    -webkit-tap-highlight-color: transparent;
                 }
-                .file-drop-zone:hover {
+                .file-drop-zone:hover,
+                .file-drop-zone:active {
                     border-color: #7c5cff;
                     background: rgba(124, 92, 255, 0.05);
                 }
@@ -113,18 +115,20 @@ export default function FileUpload({ onUploadSuccess, label, acceptedTypes = "im
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    gap: 0.5rem;
+                    gap: 0.75rem;
                 }
                 .upload-icon {
-                    font-size: 2rem;
+                    font-size: 2.5rem;
                 }
                 .upload-text {
                     display: flex;
                     flex-direction: column;
+                    gap: 0.25rem;
                 }
                 .primary-text {
                     font-weight: 600;
                     color: #7c5cff;
+                    font-size: 1rem;
                 }
                 .secondary-text {
                     font-size: 0.85rem;
@@ -134,6 +138,22 @@ export default function FileUpload({ onUploadSuccess, label, acceptedTypes = "im
                     display: flex;
                     align-items: center;
                     gap: 0.75rem;
+                }
+                @media (max-width: 640px) {
+                    .file-drop-zone {
+                        padding: 1.5rem 1rem;
+                        min-height: 100px;
+                        border-radius: 12px;
+                    }
+                    .upload-icon {
+                        font-size: 2rem;
+                    }
+                    .primary-text {
+                        font-size: 0.95rem;
+                    }
+                    .secondary-text {
+                        font-size: 0.8rem;
+                    }
                 }
             `}</style>
         </div>

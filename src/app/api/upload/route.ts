@@ -24,8 +24,11 @@ export async function POST(request: Request) {
             type: file.type.startsWith('image/') ? 'ISSUE_PHOTO' : file.type.startsWith('video/') ? 'ISSUE_VIDEO' : 'OTHER'
         });
 
-    } catch (error) {
-        console.error('Upload Error:', error);
-        return NextResponse.json({ error: 'Failed to upload file to S3' }, { status: 500 });
+    } catch (error: any) {
+        console.error('Upload API Error:', error);
+        return NextResponse.json({
+            error: error.message || 'Failed to upload file to S3',
+            details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+        }, { status: 500 });
     }
 }

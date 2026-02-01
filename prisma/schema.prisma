@@ -22,6 +22,13 @@ model WarrantyModel {
   notesTh             String?  @map("notes_th")
   createdAt           DateTime @default(now()) @map("created_at")
   updatedAt           DateTime @updatedAt @map("updated_at")
+  claimStepsEn        String?  @map("claim_steps_en")
+  coverageDetailEn    String?  @map("coverage_detail_en")
+  coverageSummaryEn   String?  @map("coverage_summary_en")
+  excludeEn           String?  @map("exclude_en")
+  notesEn             String?  @map("notes_en")
+  requiredDocsEn      String?  @map("required_docs_en")
+  warrantyStartRuleEn String?  @map("warranty_start_rule_en")
   claims              Claim[]
 
   @@map("warranty_models")

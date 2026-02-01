@@ -5,16 +5,27 @@
 
 const LINE_PUSH_API = 'https://api.line.me/v2/bot/message/push';
 
-export async function sendLineMessage(message: string): Promise<boolean> {
+export async function sendLineMessage(message: string): Promise<{ success: boolean; error?: string }> {
+    const timestamp = new Date().toISOString();
     const token = process.env.LINE_CHANNEL_ACCESS_TOKEN;
     const groupId = process.env.LINE_GROUP_ID;
 
+    console.log(`[${timestamp}] LINE Notification - Checking credentials...`);
+    console.log(`[${timestamp}] LINE_CHANNEL_ACCESS_TOKEN: ${token ? `Set (${token.length} chars)` : 'NOT SET'}`);
+    console.log(`[${timestamp}] LINE_GROUP_ID: ${groupId ? `Set (${groupId})` : 'NOT SET'}`);
+
     if (!token || !groupId) {
-        console.log('LINE Messaging API not configured, skipping notification');
-        return false;
+        const missing = [];
+        if (!token) missing.push('LINE_CHANNEL_ACCESS_TOKEN');
+        if (!groupId) missing.push('LINE_GROUP_ID');
+        const errorMsg = `LINE Messaging API not configured. Missing: ${missing.join(', ')}`;
+        console.warn(`[${timestamp}] ${errorMsg}`);
+        return { success: false, error: errorMsg };
     }
 
     try {
+        console.log(`[${timestamp}] LINE Notification - Sending to group: ${groupId}`);
+
         const response = await fetch(LINE_PUSH_API, {
             method: 'POST',
             headers: {
@@ -32,17 +43,21 @@ export async function sendLineMessage(message: string): Promise<boolean> {
             }),
         });
 
+        const responseText = await response.text();
+        console.log(`[${timestamp}] LINE API Response - Status: ${response.status}, Body: ${responseText}`);
+
         if (!response.ok) {
-            const error = await response.text();
-            console.error('LINE Messaging API error:', error);
-            return false;
+            const errorMsg = `LINE API Error ${response.status}: ${responseText}`;
+            console.error(`[${timestamp}] ${errorMsg}`);
+            return { success: false, error: errorMsg };
         }
 
-        console.log('LINE message sent successfully');
-        return true;
-    } catch (error) {
-        console.error('Failed to send LINE message:', error);
-        return false;
+        console.log(`[${timestamp}] LINE message sent successfully!`);
+        return { success: true };
+    } catch (error: any) {
+        const errorMsg = `Failed to send LINE message: ${error.message}`;
+        console.error(`[${timestamp}] ${errorMsg}`, error);
+        return { success: false, error: errorMsg };
     }
 }
 

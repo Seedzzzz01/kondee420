@@ -5,12 +5,19 @@ export interface WarrantyModel {
     modelKey: string;
     warrantyMonths: number | null;
     warrantyStartRuleTh: string | null;
+    warrantyStartRuleEn: string | null;
     requiredDocsTh: string | null;
+    requiredDocsEn: string | null;
     claimStepsTh: string | null;
+    claimStepsEn: string | null;
     coverageSummaryTh: string | null;
+    coverageSummaryEn: string | null;
     coverageDetailTh: string | null;
+    coverageDetailEn: string | null;
     excludeTh: string | null;
+    excludeEn: string | null;
     notesTh: string | null;
+    notesEn: string | null;
 }
 
 // Claim form data

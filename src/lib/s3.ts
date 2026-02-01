@@ -14,9 +14,19 @@ export async function uploadToS3(
     contentType: string
 ) {
     const bucketName = process.env.AWS_BUCKET_NAME;
+    const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+    const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+    const region = process.env.AWS_REGION || "us-east-1";
 
-    if (!bucketName) {
-        throw new Error("AWS_BUCKET_NAME is not defined");
+    const missingVars = [];
+    if (!bucketName) missingVars.push("AWS_BUCKET_NAME");
+    if (!accessKeyId) missingVars.push("AWS_ACCESS_KEY_ID");
+    if (!secretAccessKey) missingVars.push("AWS_SECRET_ACCESS_KEY");
+
+    if (missingVars.length > 0) {
+        const errorMsg = `S3 Upload Configuration Error: Missing environment variables: ${missingVars.join(", ")}`;
+        console.error(errorMsg);
+        throw new Error(errorMsg);
     }
 
     // Generate a unique file name to avoid collisions

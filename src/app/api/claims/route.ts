@@ -110,7 +110,8 @@ export async function POST(request: Request) {
             return claim;
         });
 
-        // Send LINE notification (fire-and-forget, don't block response)
+        // Send LINE notification
+        console.log('Attempting to send LINE notification for claim:', newClaim.claimId);
         const lineMessage = formatNewClaimMessage({
             claimId: newClaim.claimId,
             customerName: `${data.customerFirstName} ${data.customerLastName}`,
@@ -119,12 +120,25 @@ export async function POST(request: Request) {
             modelName: model.modelKey.split('_').pop() || model.modelKey,
             issueDescription: data.issueDescription,
         });
-        sendLineMessage(lineMessage).catch(console.error);
+
+        let lineNotificationResult: { success: boolean; error?: string } = { success: false, error: 'Not attempted' };
+        try {
+            lineNotificationResult = await sendLineMessage(lineMessage);
+            if (lineNotificationResult.success) {
+                console.log('LINE notification sent successfully for claim:', newClaim.claimId);
+            } else {
+                console.warn('LINE notification failed for claim:', newClaim.claimId, lineNotificationResult.error);
+            }
+        } catch (e: any) {
+            console.error('Error in sendLineMessage call:', e);
+            lineNotificationResult = { success: false, error: e.message };
+        }
 
         return NextResponse.json({
             success: true,
             claimId: newClaim.claimId,
-            id: newClaim.id
+            id: newClaim.id,
+            lineNotification: lineNotificationResult
         });
 
     } catch (error) {
